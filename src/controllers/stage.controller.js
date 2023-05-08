@@ -22,7 +22,7 @@ const createStage = async (req, res = response) => {
             .populate('requirementIds');
         res.json({
             ok: true,
-            permiso: etapaConReferencias
+            etapa: etapaConReferencias
         })
 
     } catch (error) {
