@@ -21,7 +21,10 @@ class Server {
             teacher: '/api/teacher',
             subject: '/api/subject',
             category: '/api/category',
-            typeProject: '/api/typeproject'
+            typeProject: '/api/typeproject',
+            season: '/api/season',
+            stage: '/api/stage',
+            requirement: '/api/requirement',
         }
 
 
@@ -73,6 +76,10 @@ class Server {
         this.app.use(this.paths.subject, require('./routes/subject.route'));
         this.app.use(this.paths.category, require('./routes/category.route'));
         this.app.use(this.paths.typeProject, require('./routes/type_project.route'));
+        this.app.use(this.paths.season, require('./routes/season.route'));
+        this.app.use(this.paths.stage, require('./routes/stage.route'));
+        this.app.use(this.paths.requirement, require('./routes/requirement.route'));
+
     }
 
     listen() {

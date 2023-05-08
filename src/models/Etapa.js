@@ -40,6 +40,11 @@ StageSchema.method('toJSON', function () {
     object.id = _id;
     object.start = moment(object.start).format('YYYY-MM-DD HH:mm:ss')
     object.end = moment(object.end).format('YYYY-MM-DD HH:mm:ss')
+    object.requirementIds.forEach(e => {
+        e.id = e._id;
+        delete e._id;
+        delete e.__v;
+    });
     return object;
 });
 
