@@ -1,7 +1,7 @@
 const { Router } = require('express');
 const { check } = require('express-validator');
-const { validarCampos } = require('../middlewares/validar-campos');
-const { getUsers, createUser, updateUser } = require('../controllers/user.controller');
+const { validarCampos, validarArchivoSubir } = require('../middlewares');
+const { getUsers, createUser, createUsers, updateUser } = require('../controllers/user.controller');
 const { validarJWT } = require('../middlewares/validar-jwt');
 
 const { emailExists } = require("../helpers/db-validators");
@@ -26,7 +26,15 @@ router.post(
     createUser
 );
 
-
+router.post(
+    '/file',
+    [
+        validarArchivoSubir,
+        validarCampos
+    ],
+    validarJWT,
+    createUsers,
+);
 // editar tipo de usuario
 router.put('/:id', updateUser)
 

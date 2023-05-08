@@ -1,7 +1,7 @@
 const { Router } = require('express');
 const { check } = require('express-validator');
-const { validarCampos } = require('../middlewares/validar-campos');
-const { getSubject, createSubject, updateSubject } = require('../controllers/subject.controller');
+const { validarCampos, validarArchivoSubir } = require('../middlewares');
+const { getSubject, createSubject, createSubjects, updateSubject } = require('../controllers/subject.controller');
 const { validarJWT } = require('../middlewares/validar-jwt');
 
 
@@ -19,6 +19,15 @@ router.post(
         validarCampos
     ],
     createSubject
+);
+router.post(
+    '/file',
+    [
+        validarArchivoSubir,
+        validarCampos
+    ],
+    validarJWT,
+    createSubjects,
 );
 //Editar tipo de proyecto
 router.put('/:id', updateSubject)

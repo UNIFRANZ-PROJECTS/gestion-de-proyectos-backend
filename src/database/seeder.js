@@ -90,13 +90,13 @@ mongoose.connection.on('connected', () => {
 const permisions = [
     //Proyectos
     {
-        name: 'Listar Proyectos',
+        name: 'Ver Proyectos',
         category: 'Proyectos',
         state: true,
     },
     {
         name: 'Crear Proyectos',
-        category: 'Categorias',
+        category: 'Proyectos',
         state: true,
     },
     {
@@ -109,25 +109,126 @@ const permisions = [
         category: 'Proyectos',
         state: true,
     },
+    {
+        name: 'Registrar avances del proyecto',
+        category: 'Proyectos',
+        state: true,
+    },
+    {
+        name: 'Registrar observacion del proyecto',
+        category: 'Proyectos',
+        state: true,
+    },
+    //Categorias
+    {
+        name: 'Ver Categorías',
+        category: 'Categorías',
+        state: true,
+    },
+    {
+        name: 'Crear Categorías',
+        category: 'Categorías',
+        state: true,
+    },
+    {
+        name: 'Editar Categorías',
+        category: 'Categorías',
+        state: true,
+    },
+    {
+        name: 'Eliminar Categorías',
+        category: 'Categorías',
+        state: true,
+    },
+    //Tipo Proyectos
+    {
+        name: 'Ver Tipo Proyectos',
+        category: 'Tipo Proyectos',
+        state: true,
+    },
+    {
+        name: 'Crear Tipo Proyectos',
+        category: 'Tipo Proyectos',
+        state: true,
+    },
+    {
+        name: 'Editar Tipo Proyectos',
+        category: 'Tipo Proyectos',
+        state: true,
+    },
+    {
+        name: 'Eliminar Tipo Proyectos',
+        category: 'Tipo Proyectos',
+        state: true,
+    },
     //USUARIOS
     {
-        name: 'Listar usuarios',
-        category: 'Eventos',
+        name: 'Ver Usuarios',
+        category: 'Usuarios',
         state: true,
     },
     {
-        name: 'Crear usuarios',
-        category: 'Eventos',
+        name: 'Crear Usuarios',
+        category: 'Usuarios',
         state: true,
     },
     {
-        name: 'Editar usuarios',
-        category: 'Eventos',
+        name: 'Editar Usuarios',
+        category: 'Usuarios',
         state: true,
     },
     {
-        name: 'Eliminar usuarios',
-        category: 'Eventos',
+        name: 'Eliminar Usuarios',
+        category: 'Usuarios',
         state: true,
     },
+    //Tipo Usuarios
+    {
+        name: 'Ver Tipo Usuarios',
+        category: 'Tipo Usuarios',
+        state: true,
+    },
+    {
+        name: 'Crear Tipo Usuarios',
+        category: 'Tipo Usuarios',
+        state: true,
+    },
+    {
+        name: 'Editar Tipo Usuarios',
+        category: 'Tipo Usuarios',
+        state: true,
+    },
+    {
+        name: 'Eliminar Tipo Usuarios',
+        category: 'Tipo Usuarios',
+        state: true,
+    },
+    //Roles
+    {
+        name: 'Ver Roles',
+        category: 'Roles',
+        state: true,
+    },
+    {
+        name: 'Crear Roles',
+        category: 'Roles',
+        state: true,
+    },
+    {
+        name: 'Editar Roles',
+        category: 'Roles',
+        state: true,
+    },
+    {
+        name: 'Eliminar Roles',
+        category: 'Roles',
+        state: true,
+    },
+    //Permisos
+    {
+        name: 'Ver Permisos',
+        category: 'Permisos',
+        state: true,
+    },
+    //Reportes
 ];

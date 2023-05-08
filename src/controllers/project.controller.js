@@ -38,6 +38,7 @@ const getProjects = async (req, res = response) => {
 }
 const createProject = async (req, res = response) => {
 
+    console.log(req.body)
     const Project = new ProjectSchema(req.body);
 
     try {
@@ -48,9 +49,28 @@ const createProject = async (req, res = response) => {
                 path: 'subjectIDs',
                 populate: {
                     path: 'teacherIds'
-                }
+                },
             })
-            .populate('studentIds');
+            .populate({
+                path: 'studentIds',
+                select: 'name lastName code email state',
+                populate: [
+                    {
+                        path: 'rol',
+                        select: 'name id'
+                    },
+                    {
+                        path: 'typeUser',
+                        select: 'name id'
+                    },
+                    {
+                        path: 'responsible',
+                        select: 'name id'
+                    }
+                ]
+            })
+            .populate('typeProyect')
+            .populate('category');
 
         res.json({
             ok: true,
