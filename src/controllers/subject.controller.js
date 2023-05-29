@@ -1,16 +1,16 @@
 const { response } = require('express');
-const { SubjectSchema } = require('../models');
+const { SubjectSchema, TeacherSchema, parallelSchema } = require('../models');
 
 const ExcelJS = require('exceljs');
+
 const workbook = new ExcelJS.Workbook();
 const getSubject = async (req, res = response) => {
 
-    const subject = await SubjectSchema.find()
-        .populate('teacherIds');
+    const materias = await SubjectSchema.find()
 
     res.json({
         ok: true,
-        subject
+        subject: materias
     });
 }
 const createSubject = async (req, res = response) => {
@@ -18,11 +18,10 @@ const createSubject = async (req, res = response) => {
     const subject = new SubjectSchema(req.body);
 
     try {
-
+        subject.user = req.uid;
         const materiaGuardada = await subject.save();
 
-        const materiaConReferencias = await SubjectSchema.findById(materiaGuardada.id)
-            .populate('teacherIds');
+        const materiaConReferencias = await SubjectSchema.findById(materiaGuardada.id);
 
         res.json({
             ok: true,
@@ -36,51 +35,62 @@ const createSubject = async (req, res = response) => {
         });
     }
 }
-const createSubjects = async (req, res = response) => {
-    // const user = new UsuarioSchema(req.body);
+async function getTeacher(id, name, lastName, ci, email) {
+    console.log(name, lastName);
+    const newTeacher = new TeacherSchema();
+    const teacher = await TeacherSchema.findOne({ ci: ci });
+    if (!teacher) {
+        newTeacher.name = name;
+        newTeacher.lastName = lastName;
+        newTeacher.ci = ci;
+        newTeacher.email = email;
+        newTeacher.user = id;
+        const docenteGuardado = await newTeacher.save();
+        return docenteGuardado.id;
+    } else {
+        return teacher.id;
+    }
+
+}
+async function createSubjects(req, res = response) {
     try {
-        const { tempFilePath } = req.files.archivo
-        await SubjectSchema.deleteMany({})
-        workbook.xlsx.readFile(tempFilePath)
-            .then((value) => {
+        const fs = require('fs');
+        const file = Buffer.from(req.body.archivo, 'base64');
+        fs.writeFileSync('/tmp/temp.xlsx', file); // o /tmp/temp.png, dependiendo del formato
+        workbook.xlsx.readFile('/tmp/temp.xlsx')
+            .then(async (value) => {
                 const worksheet = value.worksheets[0];
                 const rows = worksheet.getRows(2, worksheet.rowCount);
-                let materias = [];
 
-                rows.forEach((row) => {
+                for (let i = 0; i < rows.length; i++) {
+                    const row = rows[i];
+
                     if (row.values.some(value => value !== null)) {
-                        const subject = new SubjectSchema();
-                        let existingSubject = null;
-                        for (const key in materias) {
-                            if (materias[key].code == row.getCell(2).value) {
-                                existingSubject = materias[key];
-                                existingSubject.teacherIds.push(row.getCell(4).value);
-                                break; // Salimos del bucle para evitar crear un nuevo objeto
-                            }
+                        const teacherId = await getTeacher(req.uid, row.getCell(5).value, row.getCell(6).value, row.getCell(7).value, row.getCell(8).value);
+                        const newSubject = new SubjectSchema();
+                        const subject = await SubjectSchema.findOne({ code: row.getCell(1).value });
+                        console.log('codigo', row.getCell(2).value)
+                        if (!subject) {
+                            console.log('no existe');
+                            newSubject.code = row.getCell(1).value;
+                            newSubject.name = row.getCell(2).value;
+                            newSubject.semester = row.getCell(3).value;
+                            newSubject.user = req.uid;
+                            // newSubject.teacherIds = [teacherId];
+                            await newSubject.save();
                         }
-                        if (existingSubject === null) {
-                            subject.name = row.getCell(1).value;
-                            subject.code = row.getCell(2).value;
-                            subject.semester = row.getCell(3).value;
-                            subject.teacherIds.push(row.getCell(4).value);
-                            materias.push(subject);
-                        }
+                        //creamos el paralelo
+                        const newParallel = new parallelSchema();
+                        newParallel.name = row.getCell(4).value;
+                        newParallel.teacherId = teacherId;
+                        newParallel.subjectId = !subject ? newSubject.id : subject.id;
+                        await newParallel.save();
                     }
-                })
+                }
 
-                SubjectSchema.insertMany(materias)
-                    .then(() => {
-                        return res.json({
-                            ok: true,
-                        });
-                    })
-                    .catch((error) => {
-                        console.log(error)
-                        res.status(500).json({
-                            ok: false,
-                            msg: 'Por favor hable con el administrador'
-                        });
-                    });
+                return res.json({
+                    ok: true,
+                });
             })
             .catch((error) => {
                 console.log(error)
@@ -89,12 +99,11 @@ const createSubjects = async (req, res = response) => {
                     msg: 'Por favor hable con el administrador'
                 });
             });
-
     } catch (error) {
-        console.log(error)
+        console.log(error);
         res.status(500).json({
             ok: false,
-            msg: 'Por favor hable con el administrador'
+            msg: 'Por favor hable con el administrador',
         });
     }
 }
@@ -109,12 +118,10 @@ const updateSubject = async (req, res = response) => {
             ...req.body
         }
 
-        const materiaActualizado = await TypeProjectSchema.findByIdAndUpdate(subjectId, nuevaMateria, { new: true },);
-        const materiaConReferencias = await SubjectSchema.findById(materiaActualizado.id)
-            .populate('teacherIds');
+        const materiaActualizado = await SubjectSchema.findByIdAndUpdate(subjectId, nuevaMateria, { new: true },);
         res.json({
             ok: true,
-            subject: materiaConReferencias
+            subject: materiaActualizado
         });
 
 

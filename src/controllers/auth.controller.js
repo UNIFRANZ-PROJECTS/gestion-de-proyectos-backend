@@ -11,8 +11,19 @@ const loginUsuario = async (req, res = response) => {
     try {
 
         const usuario = await UserSchema.findOne({ email })
-            .populate('rol', 'name')
-            .populate('type_user', 'name')
+            .populate({
+                path: 'rol',
+                populate: [
+                    {
+                        path: 'permisionIds',
+                    },
+                    {
+                        path: 'user',
+                        select: 'name'
+                    },
+                ],
+            })
+            .populate('typeUser', 'name')
             .populate('responsible', 'name');
 
         if (!usuario) {
@@ -37,10 +48,14 @@ const loginUsuario = async (req, res = response) => {
             ok: true,
             uid: usuario.id,
             name: usuario.name,
-            careerIds: usuario.careerIds,
-            rol: usuario.rol.name,
+            lastName: usuario.lastName,
+            email: usuario.email,
+            code: usuario.code,
+            rol: usuario.rol,
             type_user: usuario.typeUser.name,
-            token
+            valid: usuario.valid,
+            isSuperUser: usuario.isSuperUser,
+            token,
         })
 
 

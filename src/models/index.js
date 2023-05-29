@@ -12,6 +12,9 @@ const StageSchema = require('./Etapa');
 const RequirementSchema = require('./Requisito');
 const TypeProjectSchema = require('./Tipo_proyecto');
 const CategorySchema = require('./Categoria');
+const RelationProjectSchema = require('./Relacion_proyecto');
+const ProductSchema = require('./Product');
+const parallelSchema = require('./Paralelo');
 
 module.exports = {
     TeacherSchema,
@@ -27,4 +30,7 @@ module.exports = {
     RequirementSchema,
     TypeProjectSchema,
     CategorySchema,
+    RelationProjectSchema,
+    ProductSchema,
+    parallelSchema,
 }

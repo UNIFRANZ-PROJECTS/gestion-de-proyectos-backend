@@ -14,13 +14,11 @@ const SubjectSchema = Schema({
         type: Number,
         required: true
     },
-    teacherIds: [
-        {
-            type: Schema.Types.ObjectId,
-            ref: 'Teacher',
-            required: true
-        }
-    ],
+    user: {
+        type: Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
+    },
     state: {
         type: Boolean,
         default: true
@@ -31,11 +29,6 @@ const SubjectSchema = Schema({
 SubjectSchema.method('toJSON', function () {
     const { __v, _id, ...object } = this.toObject();
     object.id = _id;
-    object.teacherIds.forEach(e => {
-        e.id = e._id;
-        delete e._id;
-        delete e.__v;
-    });
     return object;
 });
 

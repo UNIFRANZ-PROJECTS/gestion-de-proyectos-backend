@@ -1,7 +1,7 @@
 const { Router } = require('express');
 const { check } = require('express-validator');
 const { validarCampos } = require('../middlewares/validar-campos');
-const { getProjects, createProject, updateProject } = require('../controllers/project.controller');
+const { getProjects, getProjectsByStudent, createProject, updateProject, getDocument } = require('../controllers/project.controller');
 const { validarJWT } = require('../middlewares/validar-jwt');
 
 
@@ -10,12 +10,11 @@ const router = Router();
 router.use(validarJWT);
 
 router.get('/', getProjects)
-
+router.get('/student/:id', getProjectsByStudent)
 router.post(
     '/',
     [
-        check('name', 'El nomnre es obligatorio').not().isEmpty(),
-        check('description', 'La descripcion es obligatorio').not().isEmpty(),
+        check('title', 'El titulo es obligatorio').not().isEmpty(),
         check('typeProyect', 'La descripcion es obligatorio').not().isEmpty(),
         check('category', 'La descripcion es obligatorio').not().isEmpty(),
         validarCampos
@@ -24,5 +23,7 @@ router.post(
 );
 //Editar proyecto
 router.put('/:id', updateProject)
+
+router.get('/document/:id', getDocument)
 
 module.exports = router;

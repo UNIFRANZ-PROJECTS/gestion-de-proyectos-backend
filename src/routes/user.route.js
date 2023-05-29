@@ -1,6 +1,6 @@
 const { Router } = require('express');
 const { check } = require('express-validator');
-const { validarCampos, validarArchivoSubir } = require('../middlewares');
+const { validarCampos } = require('../middlewares');
 const { getUsers, createUser, createUsers, updateUser } = require('../controllers/user.controller');
 const { validarJWT } = require('../middlewares/validar-jwt');
 
@@ -28,10 +28,6 @@ router.post(
 
 router.post(
     '/file',
-    [
-        validarArchivoSubir,
-        validarCampos
-    ],
     validarJWT,
     createUsers,
 );

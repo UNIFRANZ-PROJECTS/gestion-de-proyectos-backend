@@ -14,15 +14,10 @@ const InscriptionSchema = Schema({
         type: Schema.Types.ObjectId,
         ref: 'User'
     },
-    amount: {
-        type: Number,
-        required: true
-    },
     state: {
         type: Boolean,
         default: true
     },
-
 });
 
 InscriptionSchema.method('toJSON', function () {

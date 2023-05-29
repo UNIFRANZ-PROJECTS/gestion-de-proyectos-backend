@@ -1,25 +1,47 @@
 const { response } = require('express');
 const bcrypt = require('bcryptjs');
-const { UserSchema } = require('../models');
+const { UserSchema, InscriptionSchema, SeasonSchema } = require('../models');
 const ExcelJS = require('exceljs');
 const workbook = new ExcelJS.Workbook();
 const getUsers = async (req, res = response) => {
+    try {
+        const temporada = await SeasonSchema.findOne({ state: true });
+        if (!temporada) {
+            return res.status(500).json({
+                errors: [{ msg: "No hay ninguna temporada activa" }]
+            });
+        }
 
-    const usuarios = await UserSchema.find()
-        .select('name')
-        .select('lastName')
-        .select('code')
-        .select('email')
-        .select('state')
-        .populate('rol', 'name')
-        .populate('typeUser', 'name')
-        .populate('responsible', 'name');
+        const usuarios = await UserSchema.find()
+            .select('name lastName code email state')
+            .populate('rol', 'name')
+            .populate('typeUser', 'name')
+            .populate('responsible', 'name');
 
-    res.json({
-        ok: true,
-        usuarios
-    });
-}
+        const estudiantes = await Promise.all(
+            usuarios.map(async (element) => {
+                let inscripcion = await InscriptionSchema.findOne({ season: temporada.id, student: element.id });
+                const { __v, _id, ...object } = element.toObject();
+                object.id = _id;
+                return {
+                    ...object,
+                    inscripcion: inscripcion ? true : false,
+                };
+            })
+        );
+
+        return res.json({
+            ok: true,
+            estudiantes
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            errors: [{ msg: "Ocurrió un error en el servidor" }]
+        });
+    }
+};
+
 
 const createUser = async (req, res = response) => {
 
@@ -60,11 +82,12 @@ const createUsers = async (req, res = response) => {
     // const user = new UsuarioSchema(req.body);
     try {
         const { typeUser, rol } = req.body;
-        const { tempFilePath } = req.files.archivo
         console.log(typeUser)
         console.log(rol)
-        // await TeacherSchema.deleteMany({})
-        workbook.xlsx.readFile(tempFilePath)
+        const fs = require('fs');
+        const file = Buffer.from(req.body.archivo, 'base64');
+        fs.writeFileSync('/tmp/temp.xlsx', file); // o /tmp/temp.png, dependiendo del formato
+        workbook.xlsx.readFile('/tmp/temp.xlsx')
             .then((value) => {
                 const worksheet = value.worksheets[0];
                 const rows = worksheet.getRows(2, worksheet.rowCount);
@@ -74,12 +97,14 @@ const createUsers = async (req, res = response) => {
                         const usuario = new UserSchema();
                         usuario.name = row.getCell(1).value;
                         usuario.lastName = row.getCell(2).value;
-                        usuario.email = `${row.getCell(4).value}@undefinid.com`;
+                        usuario.email = row.getCell(3).value;
                         usuario.code = row.getCell(4).value;
                         usuario.rol = rol;
                         usuario.typeUser = typeUser;
-                        usuario.password = row.getCell(4).value;
+                        const salt = bcrypt.genSaltSync();
+                        usuario.password = bcrypt.hashSync(row.getCell(3).value, salt);
                         usuario.responsible = req.uid;
+                        console.log(usuario)
                         usuarios.push(usuario);
                     }
                 });

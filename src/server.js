@@ -25,6 +25,8 @@ class Server {
             season: '/api/season',
             stage: '/api/stage',
             requirement: '/api/requirement',
+            suscribe: '/api/suscribe',
+            parallel: '/api/parallel',
         }
 
 
@@ -45,6 +47,11 @@ class Server {
 
     middlewares() {
 
+        this.app.use(express.json({ limit: '50mb' }));
+        this.app.use(function (req, res, next) {
+            res.setHeader('Access-Control-Allow-Headers', 'x-token');
+            next();
+        });
         // CORS
         this.app.use(cors());
 
@@ -79,7 +86,8 @@ class Server {
         this.app.use(this.paths.season, require('./routes/season.route'));
         this.app.use(this.paths.stage, require('./routes/stage.route'));
         this.app.use(this.paths.requirement, require('./routes/requirement.route'));
-
+        this.app.use(this.paths.suscribe, require('./routes/suscribe.route'));
+        this.app.use(this.paths.parallel, require('./routes/parallel.route'));
     }
 
     listen() {

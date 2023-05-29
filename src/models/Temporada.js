@@ -26,9 +26,14 @@ const SeasonSchema = Schema({
         type: Schema.Types.ObjectId,
         ref: 'User',
     },
+    price: {
+        type: Number,
+        default: 0,
+        required: true,
+    },
     state: {
         type: Boolean,
-        default: true
+        default: false
     },
 });
 SeasonSchema.method('toJSON', function () {
@@ -40,6 +45,11 @@ SeasonSchema.method('toJSON', function () {
         e.id = e._id;
         delete e._id;
         delete e.__v;
+        e.requirementIds.forEach(ei => {
+            ei.id = ei._id;
+            delete ei._id;
+            delete ei.__v;
+        });
     });
     return object;
 });

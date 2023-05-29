@@ -1,13 +1,10 @@
 const { Schema, model } = require('mongoose');
 
 const ProjectSchema = Schema({
-    subjectIDs: [
-        {
-            type: Schema.Types.ObjectId,
-            ref: 'Subject',
-            required: true
-        }
-    ],
+    code: {
+        type: String,
+        required: true
+    },
     responsible: {
         type: Schema.Types.ObjectId,
         ref: 'User',
@@ -20,13 +17,17 @@ const ProjectSchema = Schema({
             required: true
         }
     ],
-    name: {
+    title: {
         type: String,
         required: true
     },
-    description: {
+    generalObjective: {
         type: String,
-        required: true
+        default: ''
+    },
+    researchProblem: {
+        type: String,
+        default: ''
     },
     typeProyect: {
         type: Schema.Types.ObjectId,
@@ -41,6 +42,11 @@ const ProjectSchema = Schema({
     urlDocument: {
         type: String,
     },
+    season: {
+        type: Schema.Types.ObjectId,
+        ref: 'Season',
+        required: true
+    },
     state: {
         type: Boolean,
         default: true
@@ -50,16 +56,6 @@ const ProjectSchema = Schema({
 ProjectSchema.method('toJSON', function () {
     const { __v, _id, ...object } = this.toObject();
     object.id = _id;
-    object.subjectIDs.forEach(e => {
-        e.teacherIds.forEach(e => {
-            e.id = e._id;
-            delete e._id;
-            delete e.__v;
-        });
-        e.id = e._id;
-        delete e._id;
-        delete e.__v;
-    });
     object.studentIds.forEach(e => {
         e.id = e._id;
         delete e._id;
@@ -71,6 +67,19 @@ ProjectSchema.method('toJSON', function () {
     object.category.id = object.category._id;
     delete object.category._id;
     delete object.category.__v;
+    object.season.id = object.season._id;
+    delete object.season._id;
+    delete object.season.__v;
+    object.season.stagesIds.forEach(e => {
+        e.id = e._id;
+        delete e._id;
+        delete e.__v;
+        e.requirementIds.forEach(e => {
+            e.id = e._id;
+            delete e._id;
+            delete e.__v;
+        })
+    });
     return object;
 });
 

@@ -15,6 +15,8 @@ const {
     SeasonSchema,
     StageSchema,
     RequirementSchema,
+    CategorySchema,
+    TypeProjectSchema,
 } = require('./../models');
 
 
@@ -32,7 +34,12 @@ mongoose.connection.on('connected', () => {
     mongoose.connection.db.dropDatabase()
         .then(async () => {
             console.log('Base de datos borrada correctamente.');
-
+            //creando ETAPAS
+            await StageSchema.insertMany(stages);
+            //creando CATEGORIAS PARA PROYECTOS
+            await CategorySchema.insertMany(categories);
+            //creando TIPOS DE PROYECTOS
+            await TypeProjectSchema.insertMany(typeProjects);
             //creando PERMISOS
             const listPermisions = await PermisionSchema.insertMany(permisions);
             const idPermisions = listPermisions.map(e => e._id);
@@ -55,11 +62,11 @@ mongoose.connection.on('connected', () => {
             const user = new UserSchema({
                 rol: rolCreated._id,
                 typeUser: typeUserCreated._id,
-                name: 'Carlos',
-                lastName: 'Cahuaya',
-                code: 'SIS1',
-                email: 'carlos@gmail.com',
-                password: 'carlos123',
+                name: 'CARLOS FERNANDO',
+                lastName: 'CAHUAYA MOLLE',
+                code: 'SIS7055297',
+                email: 'capocarls@gmail.com',
+                password: 'capocarls@gmail.com',
                 valid: true,
                 state: true,
                 isSuperUser: true,
@@ -86,8 +93,134 @@ mongoose.connection.on('connected', () => {
             mongoose.connection.close();
         });
 });
+//lista de CATEGORIAS PARA PROYECTOS
+const categories = [
+    {
+        name: 'HARDWARE'
+    },
+    {
+        name: 'SOFTWARE'
+    },
+    {
+        name: 'REDES'
+    },
+    {
+        name: 'VIDEOJUEGOS'
+    }
+];
+//lista de TIPOS DE PROYECTO
+const typeProjects = [
+    {
+        name: 'SEMESTRAL'
+    },
+    {
+        name: 'INTEGRADOR'
+    }
+];
+//lista de ETAPAS
+const stages = [
+    {
+        name: 'HITO 1',
+        start: new Date().toLocaleString(),
+        end: new Date().toLocaleString(),
+        requirementIds: [],
+        weighing: 25
+    },
+    {
+        name: 'HITO 2',
+        start: new Date().toLocaleString(),
+        end: new Date().toLocaleString(),
+        requirementIds: [],
+        weighing: 25
+    },
+    {
+        name: 'HITO 3',
+        start: new Date().toLocaleString(),
+        end: new Date().toLocaleString(),
+        requirementIds: [],
+        weighing: 25
+    },
+    {
+        name: 'HITO 4',
+        start: new Date().toLocaleString(),
+        end: new Date().toLocaleString(),
+        requirementIds: [],
+        weighing: 25
+    },
+    {
+        name: 'HITO 5',
+        start: new Date().toLocaleString(),
+        end: new Date().toLocaleString(),
+        requirementIds: [],
+        weighing: 25
+    }
+];
 //lista de PERMISOS
 const permisions = [
+
+    //Temporadas
+    {
+        name: 'Ver Temporadas',
+        category: 'Temporadas',
+        state: true,
+    },
+    {
+        name: 'Crear Temporadas',
+        category: 'Temporadas',
+        state: true,
+    },
+    {
+        name: 'Editar Temporadas',
+        category: 'Temporadas',
+        state: true,
+    },
+    {
+        name: 'Eliminar Temporadas',
+        category: 'Temporadas',
+        state: true,
+    },
+    //Etapas
+    {
+        name: 'Ver Etapas',
+        category: 'Etapas',
+        state: true,
+    },
+    {
+        name: 'Crear Etapas',
+        category: 'Etapas',
+        state: true,
+    },
+    {
+        name: 'Editar Etapas',
+        category: 'Etapas',
+        state: true,
+    },
+    {
+        name: 'Eliminar Etapas',
+        category: 'Etapas',
+        state: true,
+    },
+    //Requisitos
+    {
+        name: 'Ver Requisitos',
+        category: 'Requisitos',
+        state: true,
+    },
+    {
+        name: 'Crear Requisitos',
+        category: 'Requisitos',
+        state: true,
+    },
+    {
+        name: 'Editar Requisitos',
+        category: 'Requisitos',
+        state: true,
+    },
+    {
+        name: 'Eliminar Requisitos',
+        category: 'Requisitos',
+        state: true,
+    },
     //Proyectos
     {
         name: 'Ver Proyectos',
@@ -228,6 +361,69 @@ const permisions = [
     {
         name: 'Ver Permisos',
         category: 'Permisos',
+        state: true,
+    },
+    //Docentes
+    {
+        name: 'Ver Docentes',
+        category: 'Docentes',
+        state: true,
+    },
+    {
+        name: 'Crear Docentes',
+        category: 'Docentes',
+        state: true,
+    },
+    {
+        name: 'Editar Docentes',
+        category: 'Docentes',
+        state: true,
+    },
+    {
+        name: 'Eliminar Docentes',
+        category: 'Docentes',
+        state: true,
+    },
+    //Materias
+    {
+        name: 'Ver Materias',
+        category: 'Materias',
+        state: true,
+    },
+    {
+        name: 'Crear Materias',
+        category: 'Materias',
+        state: true,
+    },
+    {
+        name: 'Editar Materias',
+        category: 'Materias',
+        state: true,
+    },
+    {
+        name: 'Eliminar Materias',
+        category: 'Materias',
+        state: true,
+    },
+    //Paralelos
+    {
+        name: 'Ver Paralelos',
+        category: 'Paralelos',
+        state: true,
+    },
+    {
+        name: 'Crear Paralelos',
+        category: 'Paralelos',
+        state: true,
+    },
+    {
+        name: 'Editar Paralelos',
+        category: 'Paralelos',
+        state: true,
+    },
+    {
+        name: 'Eliminar Paralelos',
+        category: 'Paralelos',
         state: true,
     },
     //Reportes

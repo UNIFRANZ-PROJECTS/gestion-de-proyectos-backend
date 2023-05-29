@@ -10,11 +10,11 @@ const TeacherSchema = Schema({
         type: String,
         required: [true, 'El apellido es obligatorio']
     },
-    description: {
+    ci: {
         type: String,
         required: [true, 'La descripción es obligatoria']
     },
-    specialty: {
+    email: {
         type: String,
         required: [true, 'La especialidad es obligatoria']
     },

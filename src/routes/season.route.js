@@ -1,6 +1,6 @@
 const { Router } = require('express');
 const { check } = require('express-validator');
-const { getSeasons, createSeason } = require('../controllers/season.controller');
+const { getSeasons, createSeason, updateSeason, enableSeason } = require('../controllers/season.controller');
 const { validarJWT, validarCampos } = require('../middlewares');
 const router = Router();
 
@@ -8,10 +8,10 @@ const router = Router();
 router.use(validarJWT);
 
 
-// Obtener roles
+// Obtener temporadas
 router.get('/', getSeasons);
 
-//Crear nuevo rol
+//Crear nueva temporada
 router.post(
     '/',
     [
@@ -20,5 +20,8 @@ router.post(
     ],
     createSeason
 );
-
+//Editar temporada
+router.put('/:id', updateSeason)
+//Habilitar temporada
+router.put('/enable/:id', enableSeason)
 module.exports = router;
