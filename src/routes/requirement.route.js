@@ -1,6 +1,6 @@
 const { Router } = require('express');
 const { check } = require('express-validator');
-const { getRequirements, createRequirement } = require('../controllers/requirement.controller');
+const { getRequirements, createRequirement, updateRequirement } = require('../controllers/requirement.controller');
 const { validarJWT, validarCampos } = require('../middlewares');
 const router = Router();
 
@@ -21,5 +21,7 @@ router.post(
     ],
     createRequirement
 );
+//Editar requerimiento
+router.put('/:id', updateRequirement)
 
 module.exports = router;

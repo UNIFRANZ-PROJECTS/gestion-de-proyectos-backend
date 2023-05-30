@@ -1,4 +1,7 @@
 const { Schema, model } = require('mongoose');
+const timestamp = require('mongoose-timestamp');
+const moment = require('moment-timezone');
+moment.tz.setDefault('America/La_Paz');
 
 const RelationProjectSchema = Schema({
     parallelId: {
@@ -18,6 +21,8 @@ const RelationProjectSchema = Schema({
         ref: 'Teacher',
     },
 });
+
+RelationProjectSchema.plugin(timestamp);
 
 RelationProjectSchema.method('toJSON', function () {
     const { __v, _id, ...object } = this.toObject();

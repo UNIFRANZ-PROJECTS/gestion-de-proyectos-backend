@@ -1,4 +1,8 @@
 const { Schema, model } = require('mongoose');
+const timestamp = require('mongoose-timestamp');
+const moment = require('moment-timezone');
+moment.tz.setDefault('America/La_Paz');
+
 
 const parallelSchema = Schema({
 
@@ -24,6 +28,8 @@ const parallelSchema = Schema({
     },
 
 });
+
+parallelSchema.plugin(timestamp);
 
 parallelSchema.method('toJSON', function () {
     const { __v, _id, ...object } = this.toObject();

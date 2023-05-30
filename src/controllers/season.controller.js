@@ -50,7 +50,7 @@ const createSeason = async (req, res = response) => {
 const updateSeason = async (req, res = response) => {
 
 
-    const seasonID = req.params.id;
+    const seasonId = req.params.id;
 
     try {
 
@@ -58,7 +58,7 @@ const updateSeason = async (req, res = response) => {
             ...req.body
         }
 
-        const temporadaActualizado = await SeasonSchema.findByIdAndUpdate(seasonID, nuevaTemporada, { new: true },);
+        const temporadaActualizado = await SeasonSchema.findByIdAndUpdate(seasonId, nuevaTemporada, { new: true },);
         const temporadaConReferencias = await SeasonSchema.findById(temporadaActualizado.id)
             .populate({
                 path: 'stagesIds',

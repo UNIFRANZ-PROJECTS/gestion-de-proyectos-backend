@@ -1,4 +1,7 @@
 const { Schema, model } = require('mongoose');
+const timestamp = require('mongoose-timestamp');
+const moment = require('moment-timezone');
+moment.tz.setDefault('America/La_Paz');
 
 const RequirementSchema = Schema({
 
@@ -20,6 +23,8 @@ const RequirementSchema = Schema({
     },
 
 });
+
+RequirementSchema.plugin(timestamp);
 
 RequirementSchema.method('toJSON', function () {
     const { __v, _id, ...object } = this.toObject();

@@ -1,4 +1,5 @@
 const { Schema, model } = require('mongoose');
+const timestamp = require('mongoose-timestamp');
 const moment = require('moment-timezone');
 moment.tz.setDefault('America/La_Paz');
 
@@ -34,6 +35,8 @@ const StageSchema = Schema({
     },
 
 });
+
+StageSchema.plugin(timestamp);
 
 StageSchema.method('toJSON', function () {
     const { __v, _id, ...object } = this.toObject();

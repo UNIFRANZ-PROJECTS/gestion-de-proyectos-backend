@@ -43,19 +43,26 @@ const createParallel = async (req, res = response) => {
 
 const updateParallel = async (req, res = response) => {
 
-    const teacherId = req.params.id;
+    const paraleloId = req.params.id;
 
     try {
 
-        const nuevoDocente = {
+        const nuevoParalelo = {
             ...req.body
         }
 
-        const docenteActualizado = await TeacherSchema.findByIdAndUpdate(teacherId, nuevoDocente, { new: true },);
+        const paraleloActualizado = await parallelSchema.findByIdAndUpdate(paraleloId, nuevoParalelo, { new: true },);
+        const paraleloConReferencias = await parallelSchema.findById(paraleloActualizado.id)
+            .populate({
+                path: 'teacherId'
+            })
+            .populate({
+                path: 'subjectId'
+            });
 
         res.json({
             ok: true,
-            teacher: docenteActualizado
+            paralelo: paraleloConReferencias
         });
 
 

@@ -1,4 +1,8 @@
 const { Schema, model } = require('mongoose');
+const timestamp = require('mongoose-timestamp');
+const moment = require('moment-timezone');
+moment.tz.setDefault('America/La_Paz');
+
 
 const ProjectSchema = Schema({
     code: {
@@ -52,6 +56,9 @@ const ProjectSchema = Schema({
         default: true
     },
 });
+
+ProjectSchema.plugin(timestamp);
+
 
 ProjectSchema.method('toJSON', function () {
     const { __v, _id, ...object } = this.toObject();

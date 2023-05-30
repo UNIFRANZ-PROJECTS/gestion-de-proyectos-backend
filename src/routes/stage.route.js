@@ -1,6 +1,6 @@
 const { Router } = require('express');
 const { check } = require('express-validator');
-const { getStages, createStage } = require('../controllers/stage.controller');
+const { getStages, createStage, updateStages } = require('../controllers/stage.controller');
 const { validarJWT, validarCampos } = require('../middlewares');
 const router = Router();
 
@@ -8,10 +8,10 @@ const router = Router();
 router.use(validarJWT);
 
 
-// Obtener roles
+// Obtener etapas
 router.get('/', getStages);
 
-//Crear nuevo rol
+//Crear nueva etapa
 router.post(
     '/',
     [
@@ -23,5 +23,7 @@ router.post(
     ],
     createStage
 );
+//Editar etapa
+router.put('/:id', updateStages)
 
 module.exports = router;

@@ -1,4 +1,7 @@
 const { Schema, model } = require('mongoose');
+const timestamp = require('mongoose-timestamp');
+const moment = require('moment-timezone');
+moment.tz.setDefault('America/La_Paz');
 
 const UserSchema = Schema({
     rol: {
@@ -49,6 +52,8 @@ const UserSchema = Schema({
         default: false
     },
 });
+
+UserSchema.plugin(timestamp);
 
 UserSchema.method('toJSON', function () {
     const { __v, _id, ...object } = this.toObject();

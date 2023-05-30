@@ -2,6 +2,34 @@ const { response } = require('express');
 const { InscriptionSchema, UserSchema, SeasonSchema } = require('../models');
 const generateDocument = require('./document.pdf');
 
+
+const getAllSuscribe = async (req, res = response) => {
+
+    const temporada = await SeasonSchema.findOne({ state: true })
+        .populate({
+            path: 'stagesIds',
+            populate: [
+                {
+                    path: 'requirementIds',
+                },
+            ]
+        });
+    if (!temporada) {
+        res.status(500).json({
+            errors: [{ msg: "No hay ninguna temporada activa" }]
+        });
+    }
+    const inscripciones = await InscriptionSchema.find({ season: temporada._id })
+        .populate('student', 'name lastName code email state')
+        .populate('responsible', 'name lastName code email state')
+
+    res.json({
+        ok: true,
+        season: temporada,
+        suscribes: inscripciones
+    });
+}
+
 const createSuscribe = async (req, res = response) => {
     const inscrpcion = new InscriptionSchema(req.body);
 
@@ -50,5 +78,6 @@ const createSuscribe = async (req, res = response) => {
 };
 
 module.exports = {
+    getAllSuscribe,
     createSuscribe
 };

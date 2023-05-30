@@ -2,6 +2,7 @@ require('dotenv').config();
 const path = require('path');
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
+const moment = require('moment-timezone');
 const { response } = require('express');
 const {
     TeacherSchema,
@@ -18,7 +19,7 @@ const {
     CategorySchema,
     TypeProjectSchema,
 } = require('./../models');
-
+// const Category = require('./models/Category');
 
 // Conecta a la base de datos
 mongoose.connect(process.env.DB_CNN, {
@@ -35,14 +36,31 @@ mongoose.connection.on('connected', () => {
         .then(async () => {
             console.log('Base de datos borrada correctamente.');
             //creando ETAPAS
-            await StageSchema.insertMany(stages);
+            await StageSchema.collection.insertMany(stages.map(data => ({
+                ...data,
+                createdAt: moment().toDate(),
+                updatedAt: moment().toDate()
+            })));
             //creando CATEGORIAS PARA PROYECTOS
-            await CategorySchema.insertMany(categories);
+            await CategorySchema.collection.insertMany(categories.map(data => ({
+                ...data,
+                createdAt: moment().toDate(),
+                updatedAt: moment().toDate()
+            })));
             //creando TIPOS DE PROYECTOS
-            await TypeProjectSchema.insertMany(typeProjects);
+            await TypeProjectSchema.collection.insertMany(typeProjects.map(data => ({
+                ...data,
+                createdAt: moment().toDate(),
+                updatedAt: moment().toDate()
+            })));
             //creando PERMISOS
-            const listPermisions = await PermisionSchema.insertMany(permisions);
-            const idPermisions = listPermisions.map(e => e._id);
+            await PermisionSchema.collection.insertMany(permisions.map(data => ({
+                ...data,
+                createdAt: moment().toDate(),
+                updatedAt: moment().toDate()
+            })));
+
+            const idPermisions = await PermisionSchema.find();
             // creando ROL
             const rol = RoleSchema({
                 name: 'Desarrollador',
@@ -96,25 +114,31 @@ mongoose.connection.on('connected', () => {
 //lista de CATEGORIAS PARA PROYECTOS
 const categories = [
     {
-        name: 'HARDWARE'
+        name: 'HARDWARE',
+        state: true,
     },
     {
-        name: 'SOFTWARE'
+        name: 'SOFTWARE',
+        state: true,
     },
     {
-        name: 'REDES'
+        name: 'REDES',
+        state: true,
     },
     {
-        name: 'VIDEOJUEGOS'
+        name: 'VIDEOJUEGOS',
+        state: true,
     }
 ];
 //lista de TIPOS DE PROYECTO
 const typeProjects = [
     {
-        name: 'SEMESTRAL'
+        name: 'SEMESTRAL',
+        state: true,
     },
     {
-        name: 'INTEGRADOR'
+        name: 'INTEGRADOR',
+        state: true,
     }
 ];
 //lista de ETAPAS
@@ -124,35 +148,40 @@ const stages = [
         start: new Date().toLocaleString(),
         end: new Date().toLocaleString(),
         requirementIds: [],
-        weighing: 25
+        weighing: 25,
+        state: true,
     },
     {
         name: 'HITO 2',
         start: new Date().toLocaleString(),
         end: new Date().toLocaleString(),
         requirementIds: [],
-        weighing: 25
+        weighing: 25,
+        state: true,
     },
     {
         name: 'HITO 3',
         start: new Date().toLocaleString(),
         end: new Date().toLocaleString(),
         requirementIds: [],
-        weighing: 25
+        weighing: 25,
+        state: true,
     },
     {
         name: 'HITO 4',
         start: new Date().toLocaleString(),
         end: new Date().toLocaleString(),
         requirementIds: [],
-        weighing: 25
+        weighing: 25,
+        state: true,
     },
     {
         name: 'HITO 5',
         start: new Date().toLocaleString(),
         end: new Date().toLocaleString(),
         requirementIds: [],
-        weighing: 25
+        weighing: 25,
+        state: true,
     }
 ];
 //lista de PERMISOS
