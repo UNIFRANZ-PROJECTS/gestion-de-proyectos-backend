@@ -1341,29 +1341,32 @@ A.aKn.prototype={
 $1(d){return d.d.f===this.a.f},
 $S:50}
 A.aKo.prototype={
-$1(d){var x=d.c
-return x.b+" "+x.c+" (PARALELO "+d.a+")"},
+$1(d){var x=d.d,w=d.c
+return"("+x.c+") "+w.b+" "+w.c+" (PARALELO "+d.a+")"},
 $S:760}
 A.aKp.prototype={
 $1(d){var x=this.a
 x.D(new A.aKk(x,C.b.i1(this.b,new A.aKl(d)),this.c))},
 $S:3}
 A.aKl.prototype={
-$1(d){var x=d.c
-return x.b+" "+x.c+" (PARALELO "+d.a+")"===J.p0(this.a)},
+$1(d){var x=d.d,w=d.c
+return"("+x.c+") "+w.b+" "+w.c+" (PARALELO "+d.a+")"===J.p0(this.a)},
 $S:50}
 A.aKk.prototype={
-$0(){var x,w,v=this.a,u=v.w,t=this.b
-u=new B.ac(u,new A.aKi(t),B.X(u).h("ac<1>"))
-u=u.gah(u)
-x=y.M
-w=v.w
-if(!u)v.w=B.a1(w,!0,x)
-else{u=B.a1(new B.ac(w,new A.aKj(this.c),B.X(w).h("ac<1>")),!0,x)
-v.w=u
-x=B.a1(u,!0,x)
-x.push(t)
-v.w=x}},
+$0(){var x,w,v,u,t=this.b
+B.a7().$1("paralelo "+C.h.aE(t))
+x=this.a
+w=x.w
+w=new B.ac(w,new A.aKi(t),B.X(w).h("ac<1>"))
+w=w.gah(w)
+v=y.M
+u=x.w
+if(!w)x.w=B.a1(u,!0,v)
+else{w=B.a1(new B.ac(u,new A.aKj(this.c),B.X(u).h("ac<1>")),!0,v)
+x.w=w
+v=B.a1(w,!0,v)
+v.push(t)
+x.w=v}},
 $S:0}
 A.aKi.prototype={
 $1(d){return d===this.a},
@@ -1807,4 +1810,4 @@ D.ahm=new B.bL("Objetivo General:",null,D.IW,null,null,null,null,null,null,null)
 D.ahn=new B.bL("Proyectos",null,null,null,null,null,null,null,null,null)
 D.aji=new A.Nc(null)
 D.ajj=new A.Nd(null)})()}
-$__dart_deferred_initializers__["4lhFg+pEuWz0y6meqtgXA3uzcxQ="] = $__dart_deferred_initializers__.current
+$__dart_deferred_initializers__["FIlRloMUNWACxIWd6O/tnH8JFcs="] = $__dart_deferred_initializers__.current
