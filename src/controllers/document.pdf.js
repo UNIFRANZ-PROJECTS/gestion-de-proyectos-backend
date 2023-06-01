@@ -2,10 +2,16 @@
 const { UserSchema } = require('../models');
 const pdfMake = require('pdfmake');
 const path = require('path');
+const { Readable } = require('stream');
+// import * as path from 'path';
+// import * as fs from 'fs';
+const fs = require('fs')
+
+const { GoogleDriveService } = require('./googleDriveService.js');
 
 const { transporter } = require("../helpers/mailer");
 
-const generateDocument = async (student, comprobanteId, responsableId, detail, received, date) => {
+const generateDocument = async (student, comprobanteId, responsableId, detail, received, date, folderName) => {
     const responsable = await UserSchema.findById(responsableId)
     console.log('documento');
     const fonts = {
@@ -165,11 +171,30 @@ const generateDocument = async (student, comprobanteId, responsableId, detail, r
         pdfDoc.on('end', async () => {
 
             const pdfData = Buffer.concat(chunks);
+            const pdfStream = new Readable();
+            pdfStream.push(pdfData);
+            pdfStream.push(null);
             const pdfBase64 = pdfData.toString('base64');
+
+            const googleDriveService = new GoogleDriveService();
+
+            let folder = await googleDriveService.searchFolder(folderName).catch((error) => {
+                console.error(error);
+                return null;
+            });
+
+            if (!folder) {
+                folder = await googleDriveService.createFolder(folderName);
+            }
+            console.log(folder)
+            const response = await googleDriveService.saveFile(comprobanteId, pdfStream, 'application/pdf', folder.id).catch((error) => {
+                console.error(error);
+            });
+
             await transporter.sendMail({
                 from: `"CENTRO DE ESTUDIANTES" <${process.env.USERGMAIL}>`, // sender address
-                // to: student.email,
-                to: 'moisic.mo@gmail.com',
+                to: student.email,
+                // to: 'moisic.mo@gmail.com',
                 subject: "Comprobante de pago", // Subject line
                 html: `
                 <b> Muchas gracias por el pago </b>
@@ -178,13 +203,13 @@ const generateDocument = async (student, comprobanteId, responsableId, detail, r
             `,
                 attachments: [
                     {
-                        filename: 'comprobante.pdf',
+                        filename: `comprobante${comprobanteId}.pdf`,
                         content: pdfBase64,
                         encoding: 'base64',
                     },
                 ],
             });
-            resolve(pdfBase64);
+            resolve({ pdfBase64, response });
         });
         pdfDoc.end();
     });

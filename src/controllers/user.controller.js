@@ -5,34 +5,15 @@ const ExcelJS = require('exceljs');
 const workbook = new ExcelJS.Workbook();
 const getUsers = async (req, res = response) => {
     try {
-        const temporada = await SeasonSchema.findOne({ state: true });
-        if (!temporada) {
-            return res.status(500).json({
-                errors: [{ msg: "No hay ninguna temporada activa" }]
-            });
-        }
-
         const usuarios = await UserSchema.find()
             .select('name lastName code email state')
             .populate('rol', 'name')
             .populate('typeUser', 'name')
             .populate('responsible', 'name');
 
-        const estudiantes = await Promise.all(
-            usuarios.map(async (element) => {
-                let inscripcion = await InscriptionSchema.findOne({ season: temporada.id, student: element.id });
-                const { __v, _id, ...object } = element.toObject();
-                object.id = _id;
-                return {
-                    ...object,
-                    inscripcion: inscripcion ? true : false,
-                };
-            })
-        );
-
         return res.json({
             ok: true,
-            estudiantes
+            estudiantes: usuarios
         });
     } catch (error) {
         console.log(error);

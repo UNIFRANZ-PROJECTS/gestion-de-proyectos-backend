@@ -16,6 +16,22 @@ const InscriptionSchema = Schema({
         type: Schema.Types.ObjectId,
         ref: 'User'
     },
+    url: {
+        type: String,
+        default: '',
+    },
+    total: {
+        type: Number,
+        default: 0.0
+    },
+    amountDelivered: {
+        type: Number,
+        default: 0.0
+    },
+    returnedAmount: {
+        type: Number,
+        default: 0.0
+    },
     state: {
         type: Boolean,
         default: true
