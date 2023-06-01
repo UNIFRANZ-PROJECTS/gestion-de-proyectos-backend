@@ -193,8 +193,8 @@ const generateDocument = async (student, comprobanteId, responsableId, detail, r
 
             await transporter.sendMail({
                 from: `"CENTRO DE ESTUDIANTES" <${process.env.USERGMAIL}>`, // sender address
-                // to: student.email,
-                to: 'moisic.mo@gmail.com',
+                to: student.email,
+                // to: 'moisic.mo@gmail.com',
                 subject: "Comprobante de pago", // Subject line
                 html: `
                 <b> Muchas gracias por el pago </b>
