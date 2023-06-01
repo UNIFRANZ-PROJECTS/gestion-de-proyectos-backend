@@ -1,5 +1,5 @@
 self.$__dart_deferred_initializers__=self.$__dart_deferred_initializers__||Object.create(null)
-$__dart_deferred_initializers__.current=function(a,b,c,$){var A={jC:function jC(){},
+$__dart_deferred_initializers__.current=function(a,b,c,$){var A={jE:function jE(){},
 aIf(d){var x=J.ad(d),w=x.i(d,"state"),v=x.i(d,"name"),u=x.i(d,"user"),t=J.ad(u)
 return new A.fV(w,v,new A.aIv(t.i(u,"_id"),t.i(u,"name")),x.i(d,"id"))},
 fV:function fV(d,e,f,g){var _=this
@@ -12,7 +12,7 @@ this.b=e}},B,J
 A=a.updateHolder(c[39],A)
 B=c[0]
 J=c[1]
-A.jC.prototype={
+A.jE.prototype={
 gex(){return B.a([],y.h)}}
 A.fV.prototype={
 cQ(){var x=this
@@ -22,7 +22,7 @@ A.aIv.prototype={
 cQ(){return B.ag(["_id",this.a,"name",this.b],y.g,y.b)},
 gaS(d){return this.b}}
 var z=a.updateTypes([]);(function inheritance(){var x=a.inherit,w=a.inheritMany
-x(A.jC,B.hB)
+x(A.jE,B.hC)
 w(B.H,[A.fV,A.aIv])})()
 var y={h:B.G("m<H>"),g:B.G("h"),b:B.G("@")}}
-$__dart_deferred_initializers__["uUMMGZzEKM/DVZpt93AAnG/xc2c="] = $__dart_deferred_initializers__.current
+$__dart_deferred_initializers__["qBS8NXfais5KRS1QOEm0qSUWyHY="] = $__dart_deferred_initializers__.current

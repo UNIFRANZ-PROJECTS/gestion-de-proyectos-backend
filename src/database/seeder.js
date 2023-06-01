@@ -250,6 +250,22 @@ const permisions = [
         category: 'Requisitos',
         state: true,
     },
+    //Inscripciones
+    {
+        name: 'Ver Inscripciones',
+        category: 'Inscripciones',
+        state: true,
+    },
+    {
+        name: 'Inscribir',
+        category: 'Inscripciones',
+        state: true,
+    },
+    {
+        name: 'Reportes de Inscripciones',
+        category: 'Inscripciones',
+        state: true,
+    },
     //Proyectos
     {
         name: 'Ver Proyectos',

@@ -1,86 +1,80 @@
 self.$__dart_deferred_initializers__=self.$__dart_deferred_initializers__||Object.create(null)
-$__dart_deferred_initializers__.current=function(a,b,c,$){var A={WV:function WV(d){this.a=d},aoD:function aoD(){},ahK:function ahK(d){this.a=d},b0g:function b0g(){},ae_:function ae_(d){this.a=d},aVf:function aVf(){},aVg:function aVg(){},aVh:function aVh(){},wa:function wa(d,e,f,g,h){var _=this
+$__dart_deferred_initializers__.current=function(a,b,c,$){var B={WW:function WW(d){this.a=d},aoE:function aoE(){},ahL:function ahL(d){this.a=d},b0g:function b0g(){},ae0:function ae0(d){this.a=d},aVh:function aVh(){},Hd:function Hd(d,e,f,g,h){var _=this
 _.c=d
 _.d=e
 _.e=f
 _.f=g
-_.a=h},aoI:function aoI(d){this.a=d},
-bsn(){return new A.ts(null)},
-ts:function ts(d){this.a=d},
-acY:function acY(d,e){var _=this
+_.a=h},aoJ:function aoJ(d){this.a=d},
+bsr(){return new B.tt(null)},
+tt:function tt(d){this.a=d},
+acZ:function acZ(d,e){var _=this
 _.e=d
 _.a=null
 _.b=e
-_.c=null}},B,D,C,E,G,F
-A=a.updateHolder(c[3],A)
-B=c[0]
+_.c=null}},A,D,C,E,G,F
+B=a.updateHolder(c[3],B)
+A=c[0]
 D=c[80]
 C=c[2]
 E=c[64]
 G=c[53]
 F=c[81]
-A.WV.prototype={
-F(d){return new B.nX(new A.aoD(),null)}}
-A.ahK.prototype={
+B.WW.prototype={
+F(d){return new A.nY(new B.aoE(),null)}}
+B.ahL.prototype={
 F(d){var x=null
-return B.bM(x,B.bE(B.a([D.a8I,C.Ir,new A.wa("Iniciar Sesi\xf3n",C.l,new A.b0g(),new B.bU(D.OR,y.n),x)],y.e),C.bQ,C.n,C.p,x),C.o,x,x,x,x,x,x,E.lQ,x,x,1/0)}}
-A.ae_.prototype={
+return A.bL(x,A.bE(A.a([D.a8G,C.Is,new B.Hd("Iniciar Sesi\xf3n",C.l,new B.b0g(),new A.bU(D.OS,y.n),x)],y.e),C.bQ,C.n,C.p,x),C.o,x,x,x,x,x,x,E.lQ,x,x,1/0)}}
+B.ae0.prototype={
 F(d){var x=null
-return B.bM(x,B.ba(B.a([new A.wa("Contador Stateful",C.t,new A.aVf(),x,x),C.nH,new A.wa("Contador Provider",C.t,new A.aVg(),x,x),C.nH,new A.wa("Otra p\xe1gina",C.t,new A.aVh(),x,x)],y.e),C.bQ,C.n,C.p),C.o,x,x,x,x,x,x,E.lQ,x,x,1/0)}}
-A.wa.prototype={
-F(d){var x=this,w=null,v=B.Gw(w,w,x.f,w,w,w,w,w,w,w,w,w,w,w,w,w,w,w,w,w,w,w)
-return B.a6r(new B.b1(C.bx,B.aL(x.c,w,w,w,w,B.bV(w,w,x.d,w,w,w,w,w,w,w,w,w,w,w,w,w,w,!0,w,w,w,w,w,w,w,w),w,w),w),new A.aoI(x),v)}}
-A.ts.prototype={
-Y(){return new A.acY(B.bt(null),C.i)}}
-A.acY.prototype={
+return A.bL(x,A.ba(A.a([new B.Hd("Iniciar Sesi\xf3n",C.t,new B.aVh(),x,x)],y.e),C.bQ,C.n,C.p),C.o,x,x,x,x,x,x,E.lQ,x,x,1/0)}}
+B.Hd.prototype={
+F(d){var x=this,w=null,v=A.Gw(w,w,x.f,w,w,w,w,w,w,w,w,w,w,w,w,w,w,w,w,w,w,w)
+return A.a6s(new A.b1(C.by,A.aL(x.c,w,w,w,w,A.bV(w,w,x.d,w,w,w,w,w,w,w,w,w,w,w,w,w,w,!0,w,w,w,w,w,w,w,w),w,w),w),new B.aoJ(x),v)}}
+B.tt.prototype={
+Y(){return new B.acZ(A.bt(null),C.i)}}
+B.acZ.prototype={
 au(){this.aI()},
 F(d){var x=this,w=y.e
-return B.a3v(D.Qr,B.ba(B.a([D.RB,B.cS(B.b0(d,null,y.h).w.a.a>1000?B.bE(B.a([x.a5B(0),x.Ac()],w),C.bQ,C.n,C.p,null):B.ba(B.a([x.Ac(),x.a5B(0)],w),C.m,C.n,C.p),1)],w),C.m,C.n,C.p),!0,null)},
-a5B(d){var x,w=null,v=this.c
+return A.a3w(D.Qs,A.ba(A.a([D.RC,A.cY(A.b0(d,null,y.h).w.a.a>1000?A.bE(A.a([x.a5C(0),x.Ad()],w),C.bQ,C.n,C.p,null):A.ba(A.a([x.Ad(),x.a5C(0)],w),C.m,C.n,C.p),1)],w),C.m,C.n,C.p),!0,null)},
+a5C(d){var x,w=null,v=this.c
 v.toString
-v=B.b0(v,w,y.h).w.a.a>1000
+v=A.b0(v,w,y.h).w.a.a>1000
 x=v?1:3
 v=v?80:20
-return B.cS(B.dA(G.fS(D.Rc,w,C.A,new B.aC(v,0,v,0),w,!1,C.a2),w,w),x)},
-Ac(){var x=this.c
+return A.cY(A.dA(G.fS(D.Rd,w,C.A,new A.aC(v,0,v,0),w,!1,C.a2),w,w),x)},
+Ad(){var x=this.c
 x.toString
-x=B.b0(x,null,y.h).w.a.a>1000?0:20
-return B.cS(new B.b1(new B.aC(x,0,x,0),D.NV,null),1)}}
+x=A.b0(x,null,y.h).w.a.a>1000?0:20
+return A.cY(new A.b1(new A.aC(x,0,x,0),D.NW,null),1)}}
 var z=a.updateTypes([])
-A.aoD.prototype={
-$2(d,e){return e.b>520?new A.ahK(null):new A.ae_(null)},
-$S:803}
-A.b0g.prototype={
-$0(){return $.bm().r.jO("Root").AJ("/login")},
-$S:41}
-A.aVf.prototype={
-$0(){},
-$S:4}
-A.aVg.prototype={
-$0(){},
-$S:4}
-A.aVh.prototype={
-$0(){},
-$S:4}
-A.aoI.prototype={
+B.aoE.prototype={
+$2(d,e){return e.b>520?new B.ahL(null):new B.ae0(null)},
+$S:804}
+B.b0g.prototype={
+$0(){return $.bk().r.jb("Root").wA("/login")},
+$S:38}
+B.aVh.prototype={
+$0(){return $.bk().r.jb("Root").wA("/login")},
+$S:38}
+B.aoJ.prototype={
 $0(){return this.a.e.$0()},
 $S:0};(function inheritance(){var x=a.inheritMany,w=a.inherit
-x(B.an,[A.WV,A.ahK,A.ae_,A.wa])
-w(A.aoD,B.e8)
-x(B.dR,[A.b0g,A.aVf,A.aVg,A.aVh,A.aoI])
-w(A.ts,B.M)
-w(A.acY,B.U)})()
-B.cv(b.typeUniverse,JSON.parse('{"WV":{"an":[],"f":[]},"ahK":{"an":[],"f":[]},"ae_":{"an":[],"f":[]},"wa":{"an":[],"f":[]},"ts":{"M":[],"f":[]},"acY":{"U":["ts"]}}'))
-var y={e:B.G("m<f>"),n:B.G("bU<K>"),h:B.G("eo")};(function constants(){var x=a.makeConstList
-D.K4=new B.vN("assets/images/fondo.png",null,null)
-D.UP=new B.pH(D.K4,null,null,null)
-D.NV=new B.t2(C.I,null,null,D.UP,null)
-D.OR=new B.K(4281545523)
-D.Qr=new B.K(4294375158)
-D.ah0=new B.bL("Bienvenido(a) Centro de estudianes",null,C.hT,null,null,null,null,null,null,null)
-D.Xs=B.a(x([D.ah0,C.ee]),y.e)
-D.Rc=new B.pd(C.a2,C.n,C.S,C.m,null,C.cB,null,D.Xs,null)
-D.RB=new A.WV(null)
-D.UQ=new B.pH(F.oT,150,null,null)
-D.a8I=new B.b1(C.lP,D.UQ,null)})()}
-$__dart_deferred_initializers__["l+76MKQu8y+v9pyxbObQzwJR6Ts="] = $__dart_deferred_initializers__.current
+x(A.ao,[B.WW,B.ahL,B.ae0,B.Hd])
+w(B.aoE,A.e7)
+x(A.dR,[B.b0g,B.aVh,B.aoJ])
+w(B.tt,A.M)
+w(B.acZ,A.U)})()
+A.cv(b.typeUniverse,JSON.parse('{"WW":{"ao":[],"f":[]},"ahL":{"ao":[],"f":[]},"ae0":{"ao":[],"f":[]},"Hd":{"ao":[],"f":[]},"tt":{"M":[],"f":[]},"acZ":{"U":["tt"]}}'))
+var y={e:A.G("m<f>"),n:A.G("bU<K>"),h:A.G("eo")};(function constants(){var x=a.makeConstList
+D.K5=new A.vO("assets/images/fondo.png",null,null)
+D.UO=new A.pI(D.K5,null,null,null)
+D.NW=new A.t3(C.I,null,null,D.UO,null)
+D.OS=new A.K(4281545523)
+D.Qs=new A.K(4294375158)
+D.agZ=new A.bM("Bienvenido(a) Centro de estudianes",null,C.hT,null,null,null,null,null,null,null)
+D.Xr=A.a(x([D.agZ,C.ef]),y.e)
+D.Rd=new A.pe(C.a2,C.n,C.S,C.m,null,C.cB,null,D.Xr,null)
+D.RC=new B.WW(null)
+D.UP=new A.pI(F.oS,150,null,null)
+D.a8G=new A.b1(C.lP,D.UP,null)})()}
+$__dart_deferred_initializers__["4E7qWObugI4WVWKh2ygcENoQUF0="] = $__dart_deferred_initializers__.current
