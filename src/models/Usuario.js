@@ -51,6 +51,9 @@ const UserSchema = Schema({
         type: Boolean,
         default: false
     },
+    codeValid: {
+        type: String,
+    }
 });
 
 UserSchema.plugin(timestamp);
