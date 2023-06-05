@@ -241,16 +241,19 @@ const updateProject = async (req, res = response) => {
         }
 
         const proyectoActualizado = await ProjectSchema.findByIdAndUpdate(projectId, nuevoProyecto, { new: true },);
-        await RelationProjectSchema.deleteMany({ projectId: proyectoActualizado.id });
-        JSON.parse(req.body.parallelIds).forEach(async (e) => {
+        if (req.body.parallelIds) {
+            await RelationProjectSchema.deleteMany({ projectId: proyectoActualizado.id });
+            JSON.parse(req.body.parallelIds).forEach(async (e) => {
 
-            const relacion = new RelationProjectSchema();
-            relacion.parallelId = e.id;
-            relacion.projectId = proyectoActualizado.id;
-            relacion.subjectId = e.subjectId.id
-            relacion.teacherId = e.teacherId.id
-            relacion.save();
-        });
+                const relacion = new RelationProjectSchema();
+                relacion.parallelId = e.id;
+                relacion.projectId = proyectoActualizado.id;
+                relacion.subjectId = e.subjectId.id
+                relacion.teacherId = e.teacherId.id
+                relacion.save();
+            });
+        }
+
 
 
         const proyectoConReferencias = await getProject(proyectoActualizado.id)
